@@ -55,16 +55,3 @@ class Rockstar():
     if self.popularity < 0:
       self.popularity = 0
     self.show_status()
-
-
-
-player_char = Rockstar("Nathan Explosion", "male")
-
-player_char.tour()
-player_char.party()
-player_char.party()
-player_char.party()
-player_char.party()
-player_char.party()
-player_char.tour()
-player_char.rest()
