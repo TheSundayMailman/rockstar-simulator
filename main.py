@@ -1,12 +1,5 @@
 from rockstar import Rockstar
-
-
-
-def get_player_status(player):
-  print(" > Popularity: " + str(player.popularity) + "%")
-  print(" > Cash: $" + str(player.money))
-  print(" > Party cost: $" + str(player.cost))
-  print(" > Energy: " + str(player.energy) + "%\n")
+from logic import divider, show_status, handle_tour, handle_party, handle_rest, handle_ending
 
 
 
@@ -36,8 +29,6 @@ Every month, your rockstar can either 'tour', 'rest', or 'party'.
 Rockstars beware!
 Partying too hard while you are too popular might have devasting effects..."""
 
-  divider = "\n==========================================================================="
-
   print(intro)
   print(divider)
 
@@ -55,7 +46,7 @@ Partying too hard while you are too popular might have devasting effects..."""
   print(hint)
   print(divider)
   print("\nYour rockstar will named {}! May {} career be legendary...".format(player.name, player.posessive))
-  get_player_status(player)
+  show_status(player)
 
   # start of game loop
   running = True
@@ -65,43 +56,16 @@ Partying too hard while you are too popular might have devasting effects..."""
     if cmd == "quit" or cmd == "exit":
       running = False
     elif cmd == "tour":
-      if player.energy < 20:
-        print(divider)
-        print("\nOh no! {} has no energy to perform...so {} takes a rest instead...".format(player.name, player.pronoun))
-        player.fail_tour()
-      elif player.popularity < 100:
-        print(divider)
-        print("\n{} tours around the country to perform!!!".format(player.name))
-        print("Oh no...{} seems to be losing it with {} fans...".format(player.pronoun, player.posessive))
-        player.unpopular_tour()
-      else:
-        print(divider)
-        print("\n{} tours around the country to perform!!!".format(player.name))
-        player.tour()
-      get_player_status(player)
+      handle_tour(player)
+      show_status(player)
       months += 1
     elif cmd == "party":
-      if player.money < player.cost:
-        print(divider)
-        print("\n{} is too broke to party...".format(player.name))
-        print("So {} just sits and mopes around for awhile...".format(player.pronoun))
-        player.broke_party()
-      elif player.energy < 15:
-        print(divider)
-        print("\n{} does not have enough energy to party...".format(player.name))
-        print("So {} just sits and mopes around for awhile...".format(player.pronoun))
-        player.fail_party()
-      else:
-        print(divider)
-        print("\n{} parties like a rockstar!!!".format(player.name))
-        player.party()
-      get_player_status(player)
+      handle_party(player)
+      show_status(player)
       months += 1
     elif cmd == "rest":
-      print(divider)
-      print("\n{} goes on a haitus...".format(player.name))
-      player.rest()
-      get_player_status(player)
+      handle_rest(player)
+      show_status(player)
       months += 1
     elif cmd == "help":
       print(divider)
@@ -119,17 +83,13 @@ Partying too hard while you are too popular might have devasting effects..."""
   # evaluate result
   print(divider)
   print("After one year of being a rockstar,")
-  if player.popularity <= 50:
-    print("{} is not very popular...".format(player.name))
-  elif player.popularity > 50 and player.popularity <= 120:
-    print("{} is somewhat popular...".format(player.name))
-  else:
-    print("{} is very popular!".format(player.name))
+  handle_ending(player)
 
 
 
 # main function call
 rockstar_sim()
+
 
 
 # exit greeting
