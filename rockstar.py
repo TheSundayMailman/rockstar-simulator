@@ -8,50 +8,73 @@ class Rockstar():
     self.posessive = ("her", "his")[self.gender == "male"]
     self.alive = True
     self.popularity = 100
-    self.money = 100
+    self.money = 1000
     self.energy = 100
+    self.cost = 500
+
+  def update_cost(self):
+    self.cost = int(self.popularity * random.randint(4, 5))
 
   def show_status(self):
-    status = ("dead", "alive")[self.alive]
+    # status = ("dead", "alive")[self.alive]
     print(" > Popularity: " + str(self.popularity) + "%")
     print(" > Cash: $" + str(self.money))
-    print(" > Energy: " + str(self.energy) + "%")
-    print(" > Status: " + status)
-
-  def party(self):
-    if self.money <= 45:
-      print("{} does not have enough cash to party...".format(self.name))
-      print("So {} just sits and mopes around for awhile...".format(self.pronoun))
-      self.popularity -= random.randint(30, 50)
-    else:
-      print("{} parties like a rockstar!!!".format(self.name))
-      self.energy += random.randint(5, 15)
-      self.popularity += random.randint(20, 40)
-      self.money -= random.randint(45, 55)
-      if self.money < 0:
-        self.money = 0
-    self.show_status()
+    print(" > Party cost: $" + str(self.cost))
+    print(" > Energy: " + str(self.energy) + "%\n")
 
   def tour(self):
-    print("{} tours around the country to perform!!!".format(self.name))
-    if self.popularity < 100:
-      print("Oh no...{} seems to be losing it with {} fans...".format(self.pronoun, self.posessive))
-      self.money += random.randint(0, 15)
-      self.popularity += random.randint(0, 10)
-      self.energy -= random.randint(25, 45)
+    if self.energy == 0:
+      print("\nOh no! {} has no energy to perform...so {} takes a rest instead...".format(self.name, self.pronoun))
+      self.energy = 10
+      self.popularity -= random.randint(25, 45)
+      self.money += random.randint(1, 3) * self.popularity
     else:
-      self.money += random.randint(35, 35)
-      self.popularity += random.randint(30, 50)
-      self.energy -= random.randint(25, 45)
+      print("\n{} tours around the country to perform!!!".format(self.name))
+      if self.popularity < 100:
+        print("Oh no...{} seems to be losing it with {} fans...".format(self.pronoun, self.posessive))
+        self.energy -= random.randint(30, 50)
+        self.popularity += random.randint(0, 10)
+        self.money += random.randint(1, 5) * self.popularity
+      else:
+        self.energy -= random.randint(25, 45)
+        self.popularity += random.randint(30, 50)
+        self.money += random.randint(5, 10) * self.popularity
     if self.energy < 0:
       self.energy = 0
+    if self.popularity < 0:
+      self.popularity = 0
+    self.update_cost()
+    self.show_status()
+
+  def party(self):
+    if self.money < self.cost:
+      print("\n{} is too broke to party...".format(self.name))
+      print("So {} just sits and mopes around for awhile...".format(self.pronoun))
+      self.energy += random.randint(1, 5)
+      self.popularity -= int(random.randint(30, 50) * self.popularity / 100)
+    elif self.energy < 15:
+      print("\n{} does not have enough energy to party...".format(self.name))
+      print("So {} just sits and mopes around for awhile...".format(self.pronoun))
+      self.energy += random.randint(1, 5)
+      self.popularity -= int(random.randint(30, 50) * self.popularity / 100)
+    else:
+      print("\n{} parties like a rockstar!!!".format(self.name))
+      self.energy -= random.randint(12, 18)
+      self.popularity += random.randint(20, 40)
+      self.money -= self.cost
+    if self.popularity < 0:
+      self.popularity = 0
+    if self.energy < 0:
+      self.energy = 0
+    self.update_cost()
     self.show_status()
 
   def rest(self):
-    print("{} goes on a haitus...".format(self.name))
+    print("\n{} goes on a haitus...".format(self.name))
     self.energy += random.randint(25, 40)
     self.popularity -= random.randint(25, 45)
     self.money += random.randint(0, 10)
     if self.popularity < 0:
       self.popularity = 0
+    self.update_cost()
     self.show_status()
