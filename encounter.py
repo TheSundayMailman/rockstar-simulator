@@ -2,6 +2,7 @@ import random
 from rockstar import Rockstar
 
 
+
 # graphics
 car = """
                __       .          
@@ -10,7 +11,8 @@ car = """
 |   ___   |         ,|   ___`-.    
 |  /   \  | _________/  /   \  `-. 
 |_| (O) |______________| (O) |____|
-   \___/                \___/"""
+   \___/                \___/
+"""
 
 deranged = """
       .........
@@ -50,23 +52,23 @@ _______________________
 
 # handles all encounters that can happen to player
 def encounter_death(player):
-  encount = 1
-  if encount:
-    print("\n{} could have died but didn't.".format(player.name))
+  encount = random.randint(1, 100)
+  if encount < int(player.popularity / 5):
+    player.game_over()
 
 def encounter_impulse(player):
-  encount = 1
-  if encount:
-    player.buy_car()
+  encount = random.randint(1, 100)
+  if encount < int(player.popularity / 5):
     print("\n{} impulsively bought a fancy sports car because {} was bored and\nhad too much cash...Not the wisest move, but it made for some good PR news.".format(player.name, player.pronoun))
     print(car)
+    player.buy_car()
 
 
 
 # handles all fan events
 def encounter_fan(player, running):
-  encount = 1
-  if encount:
+  encount = random.randint(1, 100)
+  if encount < int(player.popularity / 5):
     unresolved = True
     while running and unresolved:
       print("\nDuring a concert, a crazy deranged fan approaches {} and causes a scene!".format(player.name))
@@ -94,8 +96,8 @@ def encounter_fan(player, running):
 
 # handles all producer events
 def encounter_producer(player, running):
-  encount = 1
-  if encount:
+  encount = random.randint(1, 100)
+  if encount < int(player.popularity / 5):
     unresolved = True
     while running and unresolved:
       print("\nSome creepy producer pitches a shady-sounding record deal to {}...".format(player.name))

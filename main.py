@@ -1,5 +1,5 @@
 from rockstar import Rockstar
-from logic import divider, handle_tour, handle_party, handle_rest, handle_ending
+from logic import divider, handle_tour, handle_party, handle_rest, handle_death, handle_ending
 from encounter import encounter_death, encounter_impulse, encounter_fan, encounter_producer
 
 
@@ -49,7 +49,7 @@ Partying too hard while you are too popular might have devasting effects..."""
   name = input("Start by giving your rockstar a name!\n")
   while len(name) < 4 or len(name) > 30:
     name = input("\nPlease enter a name between 4 to 30 letters long...\n")
-  
+
   gender = input("\nIs your rockstar a male or female?\n").lower()
   while gender != "male" and gender != "female":
     gender = input("\nPlease enter either 'male' or 'female'...\n").lower()
@@ -93,14 +93,9 @@ Partying too hard while you are too popular might have devasting effects..."""
 
   # loop exited because player died
   if player.alive == False:
-    print("{} has died from partying too hard...".format(player.name))
-    if player.popularity < 50:
-      print("And {} died with little fans to remember {}, sad...".format(player.pronoun, player.posessive))
-  
+    handle_death(player)
   # loop exited because all cycles completed
-  if running:
-    print(divider)
-    print("After one year of being a rockstar,")
+  elif running:
     handle_ending(player)
 
 

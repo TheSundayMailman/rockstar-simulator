@@ -64,7 +64,68 @@ tomb = """
       /  +  \     />----->  _|R|_
       | ~~~ |    // -/- /  |_ I _|
       |R.I.P|   //  /  /     |P|
-\,vV,,|_____|V,//_____/VvV,v,|_|/,,vhjwv/,"""
+\,vV,,|_____|V,//_____/VvV,v,|_|/,,vhjwv/,
+"""
+
+play_again = """
+ ____________________ 
+/                    \ 
+|     YOU  KINDA     | 
+|        ROCK!       | 
+\____________________/
+         !  !
+         !  !
+         L_ !
+        / _)!
+       / /__L
+ _____/ (____)
+        (____)
+ _____  (____)
+      \_(____)
+         !  !
+         !  !
+         \__/
+"""
+
+you_rock = """
+ ____________________ 
+/                    \ 
+|     YOU ROCK!!     | 
+|     ----------     | 
+\____________________/
+         !  !
+         !  !
+         L_ !
+        / _)!
+       / /__L
+ _____/ (____)
+        (____)
+ _____  (____)
+      \_(____)
+         !  !
+         !  !
+         \__/
+"""
+
+you_legend = """
+ ____________________ 
+/                    \ 
+|     YOU ARE A      | 
+|     LEGEND!!!!     | 
+\____________________/
+         !  !
+         !  !
+         L_ !
+        / _)!
+       / /__L
+ _____/ (____)
+        (____)
+ _____  (____)
+      \_(____)
+         !  !
+         !  !
+         \__/
+"""
 
 
 
@@ -115,12 +176,27 @@ def handle_rest(player):
   player.rest()
 
 
+# handles game over
+def handle_death(player):
+  print(tomb)
+  print("{} has died from partying too hard...".format(player.name))
+  if player.popularity < 50:
+    print("And left behind little fans to remember {}, sad...".format(player.posessive))
+  else:
+    print("But at least {} will be remembered as a rock legend!".format(player.pronoun))
+
+
 
 # handles all ending scenarios
 def handle_ending(player):
+  print(divider)
+  print("After one year of being a rockstar,")
   if player.popularity <= 50:
+    print(play_again)
     print("{} is not very popular...".format(player.name))
   elif player.popularity > 50 and player.popularity <= 120:
+    print(you_rock)
     print("{} is somewhat popular...".format(player.name))
   else:
+    print(you_legend)
     print("{} is very popular!".format(player.name))

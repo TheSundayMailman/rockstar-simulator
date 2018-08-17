@@ -13,7 +13,7 @@ class Rockstar():
     self.cost = 500
     self.cars = 0
     self.incidents = 0
-  
+
   # makes sure stats are not negative; called after every method
   def balancer(self):
     if self.energy < 0:
@@ -106,7 +106,7 @@ class Rockstar():
     self.energy += random.randint(0, 5)
     self.popularity += random.randint(5, 10)
     self.balancer()
-  
+
   def game_over(self):
     self.alive = False
     self.balancer()
