@@ -1,13 +1,72 @@
 from rockstar import Rockstar
 
+
+
+# graphics
 divider = "\n==========================================================================="
 
-# prints player status
-def show_status(player):
-  print(" > Popularity: " + str(player.popularity) + "%")
-  print(" > Cash: $" + str(player.money))
-  print(" > Party cost: $" + str(player.cost))
-  print(" > Energy: " + str(player.energy) + "%\n")
+concert = """
+                          ,     
+                      ,   |     
+   _,,._              |  0'     
+ ,'     `.__,--.     0'         
+/   .--.        |           ,,, 
+| [=========|==|==|=|==|=|==___]
+\   "--"  __    |           ''' 
+ `._   _,'  `--'                
+    ""'     ,   ,0     ,        
+            |)  |)   ,'|        
+  ____     0'   '   | 0'        
+  |  |             0'           
+ 0' 0'"""
+
+party = """
+                                   .''.
+       .''.      .        *''*    :_\/_:     .
+      :_\/_:   _\(/_  .:.*_\/_*   : /\ :  .'.:.'.
+  .''.: /\ :    /)\   ':'* /\ *  : '..'.  -=:o:=-
+ :_\/_:'.:::.  | ' *''*    * '.\*/.'_\(/_ '.':'.'
+ : /\ : :::::  =  *_\/_*     -= o =- /)\     '  *
+  '..'  ':::' === * /\ *     .'/.\*.  ' ._____
+      *        |   *..*         :       |.   |' .---"|
+        *      |     _           .--'|  ||   | _|    |
+        *      |  .-'|       __  |   |  |    ||      |
+     .-----.   |  |' |  ||  |  | |   |  |    ||      |
+ ___'       ' /"\ |  '-."".    '-'   '-.'    '`      |____
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                       ~-~-~-~-~-~-~-~-~-~   /|
+ -~-~-    )      ~-~-~-~-~-~-~-~  /|~       /_|\ 
+        _-H-__  -~-~-~-~-~-~     /_|\    -~======-~
+~-\XXXXXXXXXX/~     ~-~-~-~     /__|_\ ~-~-~-~
+~-~-~-~-~-~    ~-~~-~-~-~-~    ========  ~-~-~-~
+      ~-~~-~-~-~-~-~-~-~-~-~-~-~ ~-~~-~-~-~-~
+                        ~-~~-~-~-~-~"""
+
+rest = """
+    ) )        /\ 
+   =====      /  \ 
+  _|___|_____/ __ \____________
+ |::::::::::/ |  | \:::::::::::|
+ |:::::::::/  ====  \::::::::::|
+ |::::::::/__________\:::::::::|
+ |_________|  ____  |__________|
+  | ______ | / || \ | _______ |
+  ||  |   || ====== ||   |   ||
+  ||--+---|| |    | ||---+---||
+  ||__|___|| |   o| ||___|___||
+  |========| |____| |=========|
+ (^^-^^^^^-|________|-^^^--^^^)
+ (,, , ,, ,/________\,,,, ,, ,)
+','',,,,' /__________\,,,',',;;"""
+
+tomb = """
+       ,-=-.       ______     _
+      /  +  \     />----->  _|R|_
+      | ~~~ |    // -/- /  |_ I _|
+      |R.I.P|   //  /  /     |P|
+\,vV,,|_____|V,//_____/VvV,v,|_|/,,vhjwv/,"""
+
+
 
 # handles all tour logics
 def handle_tour(player):
@@ -23,7 +82,10 @@ def handle_tour(player):
   else:
     print(divider)
     print("\n{} tours around the country to perform!!!".format(player.name))
+    print(concert)
     player.tour()
+
+
 
 # handles all party logics
 def handle_party(player):
@@ -39,14 +101,20 @@ def handle_party(player):
     player.fail_party()
   else:
     print(divider)
+    print(party)
     print("\n{} parties like a rockstar!!!".format(player.name))
     player.party()
+
+
 
 # handles all rest logics
 def handle_rest(player):
   print(divider)
+  print(rest)
   print("\n{} goes on a haitus...".format(player.name))
   player.rest()
+
+
 
 # handles all ending scenarios
 def handle_ending(player):

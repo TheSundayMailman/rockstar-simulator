@@ -1,5 +1,19 @@
 from rockstar import Rockstar
-from logic import divider, show_status, handle_tour, handle_party, handle_rest, handle_ending
+from logic import divider, handle_tour, handle_party, handle_rest, handle_ending
+from encounter import encounter_death, encounter_impulse, encounter_fan, encounter_producer
+
+
+
+# prints player status
+def show_status(player):
+  print(" > Popularity: " + str(player.popularity) + "%")
+  print(" > Cash: $" + str(player.money))
+  print(" > Energy: " + str(player.energy) + "%")
+  if player.cars > 0:
+    print(" > Fancy sports cars owned: " + str(player.cars))
+  if player.incidents > 0:
+    print(" > # of deranged fans defeated: " + str(player.incidents))
+  print(" > Next party cost: $" + str(player.cost) + "\n")
 
 
 
@@ -46,26 +60,27 @@ Partying too hard while you are too popular might have devasting effects..."""
   print(hint)
   print(divider)
   print("\nYour rockstar will named {}! May {} career be legendary...".format(player.name, player.posessive))
-  show_status(player)
 
   # start of game loop
   running = True
   months = 0
   while running and player.alive and months < 12:
+    show_status(player)
     cmd = input("{} of 12 months have passed. What will {} do next?\nType 'help' for help, or 'quit' to exit.\n".format(months, player.name)).lower()
     if cmd == "quit" or cmd == "exit":
       running = False
     elif cmd == "tour":
       handle_tour(player)
-      show_status(player)
+      running = encounter_fan(player, running)
       months += 1
     elif cmd == "party":
       handle_party(player)
-      show_status(player)
+      encounter_death(player)
       months += 1
     elif cmd == "rest":
       handle_rest(player)
-      show_status(player)
+      encounter_impulse(player)
+      running = encounter_producer(player, running)
       months += 1
     elif cmd == "help":
       print(divider)
@@ -75,15 +90,18 @@ Partying too hard while you are too popular might have devasting effects..."""
       print("\nPlease type in a valid command...\n")
 
   # check reason for loop exit
+
+  # loop exited because player died
   if player.alive == False:
     print("{} has died from partying too hard...".format(player.name))
     if player.popularity < 50:
       print("And {} died with little fans to remember {}, sad...".format(player.pronoun, player.posessive))
   
-  # evaluate result
-  print(divider)
-  print("After one year of being a rockstar,")
-  handle_ending(player)
+  # loop exited because all cycles completed
+  if running:
+    print(divider)
+    print("After one year of being a rockstar,")
+    handle_ending(player)
 
 
 
